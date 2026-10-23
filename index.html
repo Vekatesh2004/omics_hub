@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmicsHub - Basic Plan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h2>OmicsHub</h2>
+            <p>Basic Plan</p>
+        </div>
+
+        <!-- WIZARD NAVIGATION -->
+        <nav id="wizardNav" class="nav">
+            <p class="nav-title">Complete your profile</p>
+
+            <div class="progress-wrap">
+                <div class="progress-bar"><div id="wizardProgress" class="progress-fill"></div></div>
+                <span id="wizardProgressText">0 of 6 saved</span>
+            </div>
+
+            <button type="button" class="nav-item" data-step="1"><span class="num">1</span>Academic Info</button>
+            <button type="button" class="nav-item" data-step="2"><span class="num">2</span>Areas of Interest</button>
+            <button type="button" class="nav-item" data-step="3"><span class="num">3</span>Career Goals</button>
+            <button type="button" class="nav-item" data-step="4"><span class="num">4</span>Preferred Jobs</button>
+            <button type="button" class="nav-item" data-step="5"><span class="num">5</span>Skills</button>
+            <button type="button" class="nav-item" data-step="6"><span class="num">6</span>Resume &amp; Links</button>
+        </nav>
+
+        <!-- DASHBOARD NAVIGATION -->
+        <nav id="dashNav" class="nav hidden">
+            <p class="nav-title">Menu</p>
+            <a href="#secOverview" class="nav-item">🏠 Dashboard</a>
+            <a href="#secRoles" class="nav-item">🎯 Recommended Roles</a>
+            <a href="#secGap" class="nav-item">📊 Skill Gap</a>
+            <a href="#secTraining" class="nav-item">🎓 Training</a>
+            <a href="#secResume" class="nav-item">📄 Resume Upgrade</a>
+            <a href="#secJobs" class="nav-item">💼 Job Availability <span class="lock">🔒</span></a>
+            <a href="#secUpgrade" class="nav-item">⭐ Upgrade Plan</a>
+            <button type="button" id="editProfileBtn" class="nav-item">✏️ Edit Profile</button>
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+
+        <div class="topbar">
+            <div>
+                <h1 id="pageTitle">Build your profile</h1>
+                <p id="pageSub">Fill in your details so we can upgrade your resume, skills and training.</p>
+            </div>
+            <div class="badges">
+                <span class="badge solid">BASIC</span>
+                <span class="badge">ACTIVE</span>
+            </div>
+        </div>
+
+        <!-- ================= WIZARD ================= -->
+        <section id="wizard">
+
+            <!-- STEP 1 -->
+            <form class="step-panel" data-step="1" novalidate>
+                <h2>Academic Info</h2>
+                <p class="hint">Tell us about your current education.</p>
+
+                <div class="grid">
+                    <div class="field full">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="fullName" placeholder="Your full name">
+                    </div>
+                    <div class="field">
+                        <label for="degree">Education degree *</label>
+                        <select id="degree">
+                            <option value="">Select degree</option>
+                            <option>B.Sc</option>
+                            <option>B.Tech / B.E</option>
+                            <option>B.Pharm</option>
+                            <option>M.Sc</option>
+                            <option>M.Tech / M.E</option>
+                            <option>M.Pharm</option>
+                            <option>MBA</option>
+                            <option>Ph.D</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="discipline">Discipline *</label>
+                        <input type="text" id="discipline" placeholder="e.g. Bioinformatics">
+                    </div>
+                    <div class="field">
+                        <label for="institution">Institution *</label>
+                        <input type="text" id="institution" placeholder="College / University name">
+                    </div>
+                    <div class="field">
+                        <label for="department">Department *</label>
+                        <input type="text" id="department" placeholder="e.g. Life Sciences">
+                    </div>
+                    <div class="field">
+                        <label for="cgpa">CGPA (out of 10) *</label>
+                        <input type="number" id="cgpa" min="0" max="10" step="0.01" placeholder="e.g. 8.5">
+                    </div>
+                    <div class="field">
+                        <label for="gradYear">Expected graduation year *</label>
+                        <input type="number" id="gradYear" min="2020" max="2040" step="1" placeholder="e.g. 2027">
+                    </div>
+                </div>
+
+                <p class="error-msg hidden"></p>
+                <div class="actions">
+                    <span></span>
+                    <button type="submit" class="btn primary">Save &amp; Continue</button>
+                </div>
+            </form>
+
+            <!-- STEP 2 -->
+            <form class="step-panel hidden" data-step="2" novalidate>
+                <h2>Areas of Interest</h2>
+                <p class="hint">Which domains interest you? Type and press Enter, or pick a suggestion.</p>
+
+                <div class="field">
+                    <label>Primary interests *</label>
+                    <div class="tag-field" data-path="interests.primary"
+                         data-suggest="Tool development,Website development,Bioinformatics analysis,Data science,Machine learning,Genomics,Software development">
+                        <div class="tags"></div>
+                        <div class="tag-input-row">
+                            <input type="text" placeholder="e.g. Tool and website development">
+                            <button type="button" class="btn small add-btn">Add</button>
+                        </div>
+                        <div class="suggest"></div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Secondary interests</label>
+                    <div class="tag-field" data-path="interests.secondary"
+                         data-suggest="Bioinformatics analysis,NGS data analysis,Proteomics,Drug discovery,Statistics,Data visualization,Cloud computing">
+                        <div class="tags"></div>
+                        <div class="tag-input-row">
+                            <input type="text" placeholder="e.g. Bioinformatics analysis">
+                            <button type="button" class="btn small add-btn">Add</button>
+                        </div>
+                        <div class="suggest"></div>
+                    </div>
+                </div>
+
+                <p class="error-msg hidden"></p>
+                <div class="actions">
+                    <button type="button" class="btn ghost back-btn">Back</button>
+                    <button type="submit" class="btn primary">Save &amp; Continue</button>
+                </div>
+            </form>
+
+            <!-- STEP 3 -->
+            <form class="step-panel hidden" data-step="3" novalidate>
+                <h2>Career Goals</h2>
+                <p class="hint">What are you looking for after your studies? Select all that apply.</p>
+
+                <div class="check-grid">
+                    <label class="check"><input type="checkbox" name="goal" value="Higher education (M.Sc / PhD)"><span>Higher education (M.Sc / PhD)</span></label>
+                    <label class="check"><input type="checkbox" name="goal" value="Research career"><span>Research career</span></label>
+                    <label class="check"><input type="checkbox" name="goal" value="Industry job"><span>Industry job</span></label>
+                    <label class="check"><input type="checkbox" name="goal" value="Internship"><span>Internship</span></label>
+                    <label class="check"><input type="checkbox" name="goal" value="Entrepreneurship / startup"><span>Entrepreneurship / startup</span></label>
+                </div>
+
+                <div class="field">
+                    <label for="goalNote">Anything else about your goals? (optional)</label>
+                    <textarea id="goalNote" rows="3" placeholder="e.g. I want to do a PhD in computational genomics abroad."></textarea>
+                </div>
+
+                <p class="error-msg hidden"></p>
+                <div class="actions">
+                    <button type="button" class="btn ghost back-btn">Back</button>
+                    <button type="submit" class="btn primary">Save &amp; Continue</button>
+                </div>
+            </form>
+
+            <!-- STEP 4 -->
+            <form class="step-panel hidden" data-step="4" novalidate>
+                <h2>Preferred Jobs</h2>
+                <p class="hint">Which job roles would you like to work in?</p>
+
+                <div class="field">
+                    <label>Preferred job roles *</label>
+                    <div class="tag-field" data-path="preferredJobs"
+                         data-suggest="Bioinformatics Analyst,Computational Biologist,Data Analyst,Web Developer,Research Associate,Machine Learning Engineer,Software Developer">
+                        <div class="tags"></div>
+                        <div class="tag-input-row">
+                            <input type="text" placeholder="e.g. Bioinformatics Analyst">
+                            <button type="button" class="btn small add-btn">Add</button>
+                        </div>
+                        <div class="suggest"></div>
+                    </div>
+                </div>
+
+                <p class="error-msg hidden"></p>
+                <div class="actions">
+                    <button type="button" class="btn ghost back-btn">Back</button>
+                    <button type="submit" class="btn primary">Save &amp; Continue</button>
+                </div>
+            </form>
+
+            <!-- STEP 5 -->
+            <form class="step-panel hidden" data-step="5" novalidate>
+                <h2>Skills</h2>
+                <p class="hint">Add the skills you already have. Add at least one.</p>
+
+                <div class="field">
+                    <label>Certificate programmes completed</label>
+                    <div class="tag-field" data-path="skills.certs" data-suggest="">
+                        <div class="tags"></div>
+                        <div class="tag-input-row">
+                            <input type="text" placeholder="e.g. NPTEL Python for Data Science">
+                            <button type="button" class="btn small add-btn">Add</button>
+                        </div>
+                        <div class="suggest"></div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Tools &amp; technologies</label>
+                    <div class="tag-field" data-path="skills.tools"
+                         data-suggest="Python,R,SQL,Linux,Git,Docker,HTML,CSS,JavaScript,Excel,Galaxy,BLAST">
+                        <div class="tags"></div>
+                        <div class="tag-input-row">
+                            <input type="text" placeholder="e.g. Python">
+                            <button type="button" class="btn small add-btn">Add</button>
+                        </div>
+                        <div class="suggest"></div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Techniques &amp; methods</label>
+                    <div class="tag-field" data-path="skills.techniques"
+                         data-suggest="NGS analysis,Machine learning,Statistics,Data visualization,Sequence alignment,Genomics,Scientific writing">
+                        <div class="tags"></div>
+                        <div class="tag-input-row">
+                            <input type="text" placeholder="e.g. NGS analysis">
+                            <button type="button" class="btn small add-btn">Add</button>
+                        </div>
+                        <div class="suggest"></div>
+                    </div>
+                </div>
+
+                <p class="error-msg hidden"></p>
+                <div class="actions">
+                    <button type="button" class="btn ghost back-btn">Back</button>
+                    <button type="submit" class="btn primary">Save &amp; Continue</button>
+                </div>
+            </form>
+
+            <!-- STEP 6 -->
+            <form class="step-panel hidden" data-step="6" novalidate>
+                <h2>Resume &amp; Profile Links</h2>
+                <p class="hint">Add your profile links and upload your resume.</p>
+
+                <div class="grid">
+                    <div class="field full">
+                        <label for="linkedin">LinkedIn profile</label>
+                        <input type="url" id="linkedin" placeholder="https://www.linkedin.com/in/your-name">
+                    </div>
+                    <div class="field">
+                        <label for="github">GitHub (optional)</label>
+                        <input type="url" id="github" placeholder="https://github.com/your-name">
+                    </div>
+                    <div class="field">
+                        <label for="portfolio">Portfolio / website (optional)</label>
+                        <input type="url" id="portfolio" placeholder="https://your-site.com">
+                    </div>
+                    <div class="field full">
+                        <label for="resumeFile">Upload resume (PDF, DOC, DOCX - max 5 MB)</label>
+                        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx">
+                        <p id="resumeFileInfo" class="file-info"></p>
+                    </div>
+                </div>
+
+                <p class="error-msg hidden"></p>
+                <div class="actions">
+                    <button type="button" class="btn ghost back-btn">Back</button>
+                    <button type="submit" class="btn primary">Finish &amp; Go to Dashboard</button>
+                </div>
+            </form>
+
+        </section>
+
+        <!-- ================= DASHBOARD ================= -->
+        <section id="dashboard" class="hidden">
+
+            <!-- Overview -->
+            <div id="secOverview" class="card">
+                <h2 id="welcomeText">Welcome</h2>
+                <p id="profileLine" class="hint"></p>
+                <div class="stats" id="statsRow"></div>
+            </div>
+
+            <!-- Recommended roles -->
+            <div id="secRoles" class="card">
+                <h2>Recommended Job Roles</h2>
+                <p class="hint">Roles that match your skills, interests and preferred jobs.</p>
+                <div id="rolesList" class="role-list"></div>
+            </div>
+
+            <!-- Skill gap -->
+            <div id="secGap" class="card">
+                <h2>Skill Gap Suggestions</h2>
+                <p class="hint">Skills you are missing for your best-matching roles.</p>
+                <div id="gapList" class="gap-list"></div>
+            </div>
+
+            <!-- Training -->
+            <div id="secTraining" class="card">
+                <h2>Recommended Training</h2>
+                <p class="hint">Training topics to close your skill gaps.</p>
+                <div id="trainingList" class="training-list"></div>
+            </div>
+
+            <!-- Resume upgrade -->
+            <div id="secResume" class="card">
+                <h2>Resume Upgrade</h2>
+                <p class="hint">Improve your resume using the checklist below.</p>
+                <div class="resume-top">
+                    <div class="score-circle"><span id="resumeScore">0%</span></div>
+                    <div>
+                        <p id="resumeFileName" class="strong"></p>
+                        <label class="btn primary small file-btn">
+                            Upload new resume
+                            <input type="file" id="resumeUpgradeInput" accept=".pdf,.doc,.docx" hidden>
+                        </label>
+                        <p id="resumeUpgradeMsg" class="file-info"></p>
+                    </div>
+                </div>
+                <ul id="resumeChecklist" class="checklist"></ul>
+                <div id="resumeTips" class="tips"></div>
+            </div>
+
+            <!-- Job availability (locked) -->
+            <div id="secJobs" class="card locked-card">
+                <div class="lock-icon">🔒</div>
+                <div>
+                    <h2>Job Availability</h2>
+                    <p class="hint">Live job and internship openings are not included in the Basic plan.
+                        Upgrade to view and apply for available jobs.</p>
+                </div>
+                <button type="button" class="btn primary" onclick="openUpgrade('Advanced')">Unlock with Advanced</button>
+            </div>
+
+            <!-- Upgrade -->
+            <div id="secUpgrade" class="card upgrade-card">
+                <div>
+                    <h2>Upgrade Your Plan</h2>
+                    <p class="hint">Get job availability, resume improvement suggestions, progress tracking and more.</p>
+                </div>
+                <div class="upgrade-btns">
+                    <button type="button" class="btn primary" onclick="openUpgrade('Advanced')">Upgrade to Advanced</button>
+                    <button type="button" class="btn ghost" onclick="openUpgrade('Proficiency')">Upgrade to Proficiency</button>
+                </div>
+            </div>
+
+            <footer class="footer">© 2026 OmicsHub Career Development Portal</footer>
+
+        </section>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
