@@ -1,0 +1,3108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Omics Hub</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #172033;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f2942, #126e82);
+}
+
+.login-box {
+    background: white;
+    width: 420px;
+    max-width: 92%;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.logo {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #102a43;
+    margin-bottom: 8px;
+}
+
+.logo span {
+    color: #0f9d83;
+}
+
+.login-subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #0f766e;
+}
+
+.main-btn {
+    width: 100%;
+    border: none;
+    padding: 13px;
+    background: #0f766e;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.main-btn:hover {
+    background: #0b5f59;
+}
+
+.demo-note {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+#app {
+    display: none;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 240px;
+    background: #102a43;
+    color: white;
+    padding: 25px 15px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-logo {
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+.sidebar-logo span {
+    color: #5eead4;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-menu li {
+    margin-bottom: 7px;
+}
+
+.sidebar-menu button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #dbeafe;
+    text-align: left;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.sidebar-menu button:hover,
+.sidebar-menu button.active {
+    background: #1e496f;
+    color: white;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main-content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 25px 35px;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.topbar h1 {
+    font-size: 27px;
+}
+
+.topbar p {
+    color: #64748b;
+    margin-top: 5px;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.plan-badge {
+    background: #ccfbf1;
+    color: #0f766e;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #5eead4;
+    color: #102a43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* =========================================================
+   PAGE SECTIONS
+========================================================= */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.card-title h2 {
+    font-size: 19px;
+}
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 13px;
+    border: 1px solid #e2e8f0;
+}
+
+.stat-card small {
+    color: #64748b;
+}
+
+.stat-number {
+    font-size: 29px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.green {
+    color: #0f9d83;
+}
+
+.orange {
+    color: #d97706;
+}
+
+.red {
+    color: #dc2626;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #0f766e;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0b5f59;
+}
+
+.btn-secondary {
+    background: #e8f1f5;
+    color: #126e82;
+}
+
+.btn-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* =========================================================
+   RESUME UPLOAD
+========================================================= */
+
+.upload-area {
+    border: 2px dashed #94a3b8;
+    border-radius: 14px;
+    padding: 50px 20px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.upload-area.dragover {
+    border-color: #0f766e;
+    background: #ecfdf5;
+}
+
+.upload-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.upload-area h3 {
+    margin-bottom: 8px;
+}
+
+.upload-area p {
+    color: #64748b;
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-container {
+    background: #e2e8f0;
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #0f766e;
+    width: 0%;
+    transition: width 0.5s;
+}
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.skill {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.skill-ready {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.skill-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.skill-missing {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* =========================================================
+   JOBS
+========================================================= */
+
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.job-card {
+    border: 1px solid #e2e8f0;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.job-card:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.job-title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.company {
+    color: #64748b;
+    margin: 6px 0 12px;
+}
+
+.match {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    height: fit-content;
+}
+
+.job-skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.job-skill {
+    background: #f1f5f9;
+    padding: 6px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+}
+
+.job-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 8px;
+}
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px;
+    border: 1px solid #d9e2ec;
+    border-radius: 7px;
+}
+
+/* =========================================================
+   TRAINING
+========================================================= */
+
+.training-card {
+    border: 1px solid #e2e8f0;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.training-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.training-card p {
+    color: #64748b;
+    margin: 8px 0 12px;
+    font-size: 13px;
+}
+
+/* =========================================================
+   PLANS
+========================================================= */
+
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.plan-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 25px;
+    position: relative;
+}
+
+.plan-card.featured {
+    border: 2px solid #0f766e;
+}
+
+.featured-label {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #0f766e;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+}
+
+.plan-card h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.plan-card ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.plan-card li {
+    margin-bottom: 10px;
+    color: #475569;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 500px;
+    max-width: 90%;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.close {
+    border: none;
+    background: transparent;
+    font-size: 25px;
+}
+
+.modal-body {
+    line-height: 1.7;
+    color: #475569;
+}
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: #102a43;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 9px;
+    display: none;
+    z-index: 200;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 1000px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .plan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .job-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 700px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .sidebar-logo {
+        font-size: 0;
+    }
+
+    .sidebar-logo span {
+        font-size: 18px;
+    }
+
+    .sidebar-menu button {
+        font-size: 0;
+        text-align: center;
+    }
+
+    .main-content {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">
+            OMICS <span>HUB</span>
+        </div>
+
+        <p class="login-subtitle">
+            Career & Skill Development Platform
+        </p>
+
+        <div class="input-group">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="student@example.com"
+            >
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+            >
+
+        </div>
+
+
+        <button
+            class="main-btn"
+            onclick="login()"
+        >
+            Login to Omics Hub
+        </button>
+
+
+        <p class="demo-note">
+            Demo: enter any email and password
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+
+<div id="app">
+
+    <div class="app-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                OMICS <span>HUB</span>
+            </div>
+
+
+            <ul class="sidebar-menu">
+
+                <li>
+                    <button
+                        class="active"
+                        onclick="showPage('dashboard', this)"
+                    >
+                        🏠 Dashboard
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        onclick="showPage('resume', this)"
+                    >
+                        📄 Resume
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        onclick="showPage('skills', this)"
+                    >
+                        🧠 Skills
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        onclick="showPage('jobs', this)"
+                    >
+                        💼 Jobs
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        onclick="showPage('training', this)"
+                    >
+                        🎓 Training
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        onclick="showPage('plans', this)"
+                    >
+                        💎 Plans
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="logout()">
+                        🚪 Logout
+                    </button>
+                </li>
+
+            </ul>
+
+        </aside>
+
+
+
+        <!-- MAIN -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div>
+
+                    <h1 id="pageTitle">
+                        Career Dashboard
+                    </h1>
+
+                    <p id="pageSubtitle">
+                        Your personalized career development dashboard
+                    </p>
+
+                </div>
+
+
+                <div class="user-area">
+
+                    <span
+                        class="plan-badge"
+                        id="currentPlan"
+                    >
+                        ADVANCED PLAN
+                    </span>
+
+                    <div class="avatar">
+                        S
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DASHBOARD
+            ================================================= -->
+
+            <section
+                id="dashboard"
+                class="page active"
+            >
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+
+                        <small>
+                            Resume Score
+                        </small>
+
+                        <div
+                            class="stat-number green"
+                            id="resumeScore"
+                        >
+                            78
+                        </div>
+
+                        <small>
+                            /100
+                        </small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <small>
+                            Skills Matched
+                        </small>
+
+                        <div
+                            class="stat-number green"
+                            id="matchedSkills"
+                        >
+                            12
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <small>
+                            Skills to Upgrade
+                        </small>
+
+                        <div
+                            class="stat-number orange"
+                            id="skillGapCount"
+                        >
+                            5
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <small>
+                            Job Matches
+                        </small>
+
+                        <div
+                            class="stat-number"
+                            id="jobCount"
+                        >
+                            24
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CAREER READINESS -->
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            Career Readiness
+                        </h2>
+
+                        <strong id="readinessText">
+                            78%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-container">
+
+                        <div
+                            class="progress-bar"
+                            id="readinessBar"
+                            style="width:78%"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        style="margin-top:12px;color:#64748b"
+                    >
+                        Improve your skill gaps to increase your
+                        job compatibility.
+                    </p>
+
+                </div>
+
+
+
+                <!-- SKILLS -->
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            Your Current Skills
+                        </h2>
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="showPageByName('skills')"
+                        >
+                            View Skill Analysis
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="skill-container"
+                        id="dashboardSkills"
+                    >
+                    </div>
+
+                </div>
+
+
+
+                <!-- JOBS -->
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            Recommended Jobs
+                        </h2>
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="showPageByName('jobs')"
+                        >
+                            View All Jobs
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="job-grid"
+                        id="dashboardJobs"
+                    >
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RESUME PAGE
+            ================================================= -->
+
+            <section
+                id="resume"
+                class="page"
+            >
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            📄 Upload Your Resume
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        class="upload-area"
+                        id="uploadArea"
+                    >
+
+                        <div class="upload-icon">
+                            📄
+                        </div>
+
+                        <h3>
+                            Drag & Drop Your Resume
+                        </h3>
+
+                        <p>
+                            Upload PDF or DOCX resume
+                        </p>
+
+
+                        <input
+                            type="file"
+                            id="resumeFile"
+                            accept=".pdf,.doc,.docx"
+                            hidden
+                        >
+
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="document.getElementById('resumeFile').click()"
+                        >
+                            Choose Resume
+                        </button>
+
+
+                        <p
+                            id="selectedFile"
+                            style="margin-top:15px"
+                        >
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EVALUATION -->
+
+                <div
+                    class="card"
+                    id="evaluationCard"
+                    style="display:none"
+                >
+
+                    <div class="card-title">
+
+                        <h2>
+                            🤖 Resume Evaluation
+                        </h2>
+
+                        <strong
+                            id="evaluationStatus"
+                        >
+                            Processing...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-container">
+
+                        <div
+                            class="progress-bar"
+                            id="evaluationBar"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        id="evaluationMessage"
+                        style="margin-top:15px;color:#64748b"
+                    >
+                    </p>
+
+                </div>
+
+
+
+                <!-- RESULT -->
+
+                <div
+                    class="card"
+                    id="resumeResult"
+                    style="display:none"
+                >
+
+                    <div class="card-title">
+
+                        <h2>
+                            Resume Evaluation Result
+                        </h2>
+
+                        <span
+                            class="plan-badge"
+                        >
+                            78/100
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        Your resume has been successfully evaluated.
+                    </p>
+
+
+                    <br>
+
+
+                    <h3>
+                        Extracted Skills
+                    </h3>
+
+
+                    <div
+                        class="skill-container"
+                        style="margin-top:12px"
+                    >
+
+                        <span class="skill skill-ready">
+                            Python
+                        </span>
+
+                        <span class="skill skill-ready">
+                            R Programming
+                        </span>
+
+                        <span class="skill skill-ready">
+                            RNA-seq
+                        </span>
+
+                        <span class="skill skill-ready">
+                            ChIP-seq
+                        </span>
+
+                        <span class="skill skill-ready">
+                            Linux
+                        </span>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <h3>
+                        Recommended Improvements
+                    </h3>
+
+
+                    <div
+                        class="skill-container"
+                        style="margin-top:12px"
+                    >
+
+                        <span class="skill skill-warning">
+                            SQL
+                        </span>
+
+                        <span class="skill skill-warning">
+                            Statistics
+                        </span>
+
+                        <span class="skill skill-warning">
+                            Machine Learning
+                        </span>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="showPageByName('plans')"
+                    >
+                        Continue to Plan Selection
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 SKILLS PAGE
+            ================================================= -->
+
+            <section
+                id="skills"
+                class="page"
+            >
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            🧠 Skill Gap Analysis
+                        </h2>
+
+                    </div>
+
+
+                    <p
+                        style="color:#64748b;margin-bottom:20px"
+                    >
+                        Click a skill to understand why Omics Hub
+                        recommends it.
+                    </p>
+
+
+                    <div
+                        class="skill-container"
+                        id="interactiveSkills"
+                    >
+                    </div>
+
+
+                    <div
+                        class="card"
+                        style="margin-top:20px;background:#f8fafc"
+                        id="skillExplanation"
+                    >
+
+                        Select a skill above.
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            Career Development Path
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center"
+                    >
+
+                        <div>
+                            <strong>1</strong>
+                            <p>Resume</p>
+                        </div>
+
+                        <div>
+                            <strong>2</strong>
+                            <p>Skill Gap</p>
+                        </div>
+
+                        <div>
+                            <strong>3</strong>
+                            <p>Training</p>
+                        </div>
+
+                        <div>
+                            <strong>4</strong>
+                            <p>Job Match</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 JOBS PAGE
+            ================================================= -->
+
+            <section
+                id="jobs"
+                class="page"
+            >
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            💼 Job Opportunities
+                        </h2>
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <input
+                            type="text"
+                            id="jobSearch"
+                            placeholder="Search jobs..."
+                        >
+
+
+                        <select id="matchFilter">
+
+                            <option value="all">
+                                All Matches
+                            </option>
+
+                            <option value="80">
+                                80%+ Match
+                            </option>
+
+                            <option value="70">
+                                70%+ Match
+                            </option>
+
+                        </select>
+
+
+                        <select id="locationFilter">
+
+                            <option value="all">
+                                All Locations
+                            </option>
+
+                            <option value="Bengaluru">
+                                Bengaluru
+                            </option>
+
+                            <option value="Hyderabad">
+                                Hyderabad
+                            </option>
+
+                            <option value="Pune">
+                                Pune
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div
+                        class="job-grid"
+                        id="allJobs"
+                    >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 TRAINING PAGE
+            ================================================= -->
+
+            <section
+                id="training"
+                class="page"
+            >
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            🎓 Recommended Training
+                        </h2>
+
+                        <span
+                            id="trainingProgressText"
+                        >
+                            45% Overall
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="progress-container"
+                    >
+
+                        <div
+                            class="progress-bar"
+                            id="trainingOverallBar"
+                            style="width:45%"
+                        >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="trainingList">
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PLANS
+            ================================================= -->
+
+            <section
+                id="plans"
+                class="page"
+            >
+
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h2>
+                            Choose Your Omics Hub Plan
+                        </h2>
+
+                    </div>
+
+
+                    <div class="plan-grid">
+
+
+                        <!-- BASIC -->
+
+                        <div class="plan-card">
+
+                            <h3>
+                                Basic
+                            </h3>
+
+                            <div class="price">
+                                Free
+                            </div>
+
+                            <ul>
+
+                                <li>✓ Resume Builder</li>
+
+                                <li>✓ Basic Resume Evaluation</li>
+
+                                <li>✓ Basic Skill Suggestions</li>
+
+                                <li>✓ Limited Job Recommendations</li>
+
+                            </ul>
+
+
+                            <button
+                                class="btn btn-secondary"
+                                onclick="selectPlan('Basic')"
+                            >
+                                Select Basic
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- ADVANCED -->
+
+                        <div class="plan-card featured">
+
+                            <span class="featured-label">
+                                CURRENT
+                            </span>
+
+                            <h3>
+                                Advanced
+                            </h3>
+
+                            <div class="price">
+                                ₹499
+                            </div>
+
+                            <ul>
+
+                                <li>✓ Resume Evaluation</li>
+
+                                <li>✓ Skill Gap Analysis</li>
+
+                                <li>✓ Job Matching</li>
+
+                                <li>✓ Job Skill Requirements</li>
+
+                                <li>✓ Training Recommendations</li>
+
+                                <li>✓ Career Dashboard</li>
+
+                            </ul>
+
+
+                            <button
+                                class="btn btn-primary"
+                                onclick="selectPlan('Advanced')"
+                            >
+                                Continue Advanced
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- PROFESSIONAL -->
+
+                        <div class="plan-card">
+
+                            <h3>
+                                Professional
+                            </h3>
+
+                            <div class="price">
+                                ₹999
+                            </div>
+
+                            <ul>
+
+                                <li>✓ Everything in Advanced</li>
+
+                                <li>✓ Advanced Training</li>
+
+                                <li>✓ Projects</li>
+
+                                <li>✓ Skill Assessments</li>
+
+                                <li>✓ Career Roadmap</li>
+
+                                <li>✓ Progress Tracking</li>
+
+                            </ul>
+
+
+                            <button
+                                class="btn btn-primary"
+                                onclick="upgradeProfessional()"
+                            >
+                                Upgrade
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Information
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="modal-body"
+            id="modalBody"
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     NOTIFICATION
+===================================================== -->
+
+<div
+    class="notification"
+    id="notification"
+>
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const jobs = [
+
+    {
+        title: "Bioinformatics Data Analyst",
+        company: "Genomics Research Labs",
+        location: "Bengaluru",
+        match: 88,
+        skills: [
+            "Python",
+            "R",
+            "RNA-seq",
+            "SQL",
+            "Statistics"
+        ]
+    },
+
+    {
+        title: "Genomics Research Intern",
+        company: "BioData Technologies",
+        location: "Hyderabad",
+        match: 82,
+        skills: [
+            "Python",
+            "ChIP-seq",
+            "Linux",
+            "Machine Learning"
+        ]
+    },
+
+    {
+        title: "Computational Biology Analyst",
+        company: "Life Science Analytics",
+        location: "Pune",
+        match: 76,
+        skills: [
+            "R",
+            "Statistics",
+            "RNA-seq",
+            "SQL"
+        ]
+    },
+
+    {
+        title: "Bioinformatics Intern",
+        company: "Molecular Data Systems",
+        location: "Bengaluru",
+        match: 72,
+        skills: [
+            "Python",
+            "Linux",
+            "Machine Learning"
+        ]
+    },
+
+    {
+        title: "Clinical Data Analyst",
+        company: "HealthData Systems",
+        location: "Hyderabad",
+        match: 69,
+        skills: [
+            "Python",
+            "SQL",
+            "Statistics"
+        ]
+    },
+
+    {
+        title: "Genomics Data Scientist",
+        company: "Genome Analytics",
+        location: "Bengaluru",
+        match: 85,
+        skills: [
+            "Python",
+            "Machine Learning",
+            "Statistics",
+            "SQL"
+        ]
+    }
+
+];
+
+
+const skills = {
+
+    "Python": {
+        status: "ready",
+        explanation:
+        "Your resume demonstrates Python experience. This skill matches several recommended bioinformatics and data-analysis jobs."
+    },
+
+    "R Programming": {
+        status: "ready",
+        explanation:
+        "R is already present in your skill profile and is useful for statistical analysis, RNA-seq and biological data visualization."
+    },
+
+    "RNA-seq": {
+        status: "ready",
+        explanation:
+        "RNA-seq is a strong domain skill for bioinformatics research and computational biology roles."
+    },
+
+    "ChIP-seq": {
+        status: "ready",
+        explanation:
+        "ChIP-seq experience supports genomics research and epigenomics-related opportunities."
+    },
+
+    "SQL": {
+        status: "warning",
+        explanation:
+        "SQL is recommended because many data analyst positions require querying and managing structured datasets."
+    },
+
+    "Statistics": {
+        status: "warning",
+        explanation:
+        "Statistics is important for interpreting experimental and field-trial data and understanding p-values, ANOVA and other statistical tests."
+    },
+
+    "Machine Learning": {
+        status: "warning",
+        explanation:
+        "Machine learning can increase compatibility with computational biology and predictive analytics roles."
+    },
+
+    "Cloud Computing": {
+        status: "missing",
+        explanation:
+        "Cloud skills are currently missing from the example resume profile and may be useful for large-scale computational workflows."
+    }
+
+};
+
+
+let training = [
+
+    {
+        name: "SQL for Data Analysis",
+        progress: 35,
+        description:
+        "SQL queries, filtering, joins, aggregation and biological dataset management."
+    },
+
+    {
+        name: "Statistics for Bioinformatics",
+        progress: 60,
+        description:
+        "Mean, SD, hypothesis testing, p-values, ANOVA and interpretation."
+    },
+
+    {
+        name: "Machine Learning",
+        progress: 25,
+        description:
+        "Classification, regression, model evaluation and biological applications."
+    }
+
+];
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function login() {
+
+    const email =
+        document.getElementById("loginEmail").value;
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+
+    if (!email || !password) {
+
+        showNotification(
+            "Please enter email and password."
+        );
+
+        return;
+    }
+
+
+    document.getElementById("loginPage").style.display =
+        "none";
+
+    document.getElementById("app").style.display =
+        "block";
+
+
+    showNotification(
+        "Welcome to Omics Hub!"
+    );
+
+
+    renderDashboard();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    document.getElementById("app").style.display =
+        "none";
+
+    document.getElementById("loginPage").style.display =
+        "flex";
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(pageId, button) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(page => {
+
+        page.classList.remove("active");
+
+    });
+
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
+
+    const buttons =
+        document.querySelectorAll(".sidebar-menu button");
+
+    buttons.forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    if (button) {
+
+        button.classList.add("active");
+
+    }
+
+
+    updatePageTitle(pageId);
+
+}
+
+
+function showPageByName(pageId) {
+
+    const button =
+        document.querySelector(
+            `.sidebar-menu button[onclick*="'${pageId}'"]`
+        );
+
+
+    showPage(pageId, button);
+
+}
+
+
+function updatePageTitle(pageId) {
+
+    const titles = {
+
+        dashboard: [
+            "Career Dashboard",
+            "Your personalized career development dashboard"
+        ],
+
+        resume: [
+            "Resume Evaluation",
+            "Upload and analyze your resume"
+        ],
+
+        skills: [
+            "Skill Gap Analysis",
+            "Understand your current skills and development needs"
+        ],
+
+        jobs: [
+            "Job Opportunities",
+            "Find jobs matched to your evaluated skills"
+        ],
+
+        training: [
+            "Skill Development",
+            "Improve the skills required by your target jobs"
+        ],
+
+        plans: [
+            "Plans",
+            "Choose the Omics Hub plan that fits your needs"
+        ]
+
+    };
+
+
+    document.getElementById("pageTitle").innerText =
+        titles[pageId][0];
+
+    document.getElementById("pageSubtitle").innerText =
+        titles[pageId][1];
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard() {
+
+    const container =
+        document.getElementById("dashboardSkills");
+
+
+    container.innerHTML = "";
+
+
+    Object.keys(skills).forEach(skill => {
+
+        const data = skills[skill];
+
+        const span =
+            document.createElement("span");
+
+
+        span.className =
+            "skill " +
+            (
+                data.status === "ready"
+                ? "skill-ready"
+                : data.status === "warning"
+                ? "skill-warning"
+                : "skill-missing"
+            );
+
+
+        span.innerText =
+            skill +
+            (
+                data.status === "ready"
+                ? " ✓"
+                : data.status === "warning"
+                ? " ⚠"
+                : " ✕"
+            );
+
+
+        container.appendChild(span);
+
+    });
+
+
+    renderJobs(
+        document.getElementById("dashboardJobs"),
+        jobs.slice(0, 4)
+    );
+
+}
+
+
+/* =========================================================
+   RESUME UPLOAD
+========================================================= */
+
+const fileInput =
+    document.getElementById("resumeFile");
+
+const uploadArea =
+    document.getElementById("uploadArea");
+
+
+fileInput.addEventListener(
+    "change",
+    function() {
+
+        if (this.files.length > 0) {
+
+            processResume(
+                this.files[0]
+            );
+
+        }
+
+    }
+);
+
+
+/* Drag and drop */
+
+uploadArea.addEventListener(
+    "dragover",
+    function(event) {
+
+        event.preventDefault();
+
+        uploadArea.classList.add(
+            "dragover"
+        );
+
+    }
+);
+
+
+uploadArea.addEventListener(
+    "dragleave",
+    function() {
+
+        uploadArea.classList.remove(
+            "dragover"
+        );
+
+    }
+);
+
+
+uploadArea.addEventListener(
+    "drop",
+    function(event) {
+
+        event.preventDefault();
+
+        uploadArea.classList.remove(
+            "dragover"
+        );
+
+
+        const file =
+            event.dataTransfer.files[0];
+
+
+        if (file) {
+
+            processResume(file);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RESUME PROCESSING
+========================================================= */
+
+function processResume(file) {
+
+    document.getElementById(
+        "selectedFile"
+    ).innerText =
+        "Selected: " + file.name;
+
+
+    document.getElementById(
+        "evaluationCard"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "resumeResult"
+    ).style.display =
+        "none";
+
+
+    const bar =
+        document.getElementById(
+            "evaluationBar"
+        );
+
+
+    const message =
+        document.getElementById(
+            "evaluationMessage"
+        );
+
+
+    const status =
+        document.getElementById(
+            "evaluationStatus"
+        );
+
+
+    let progress = 0;
+
+
+    const steps = [
+
+        "Reading resume...",
+
+        "Extracting education...",
+
+        "Identifying technical skills...",
+
+        "Analyzing experience...",
+
+        "Comparing job requirements...",
+
+        "Generating skill-gap analysis..."
+
+    ];
+
+
+    const interval =
+        setInterval(
+            function() {
+
+                progress += 5;
+
+
+                bar.style.width =
+                    progress + "%";
+
+
+                const index =
+                    Math.min(
+                        Math.floor(
+                            progress / 17
+                        ),
+                        steps.length - 1
+                    );
+
+
+                message.innerText =
+                    steps[index];
+
+
+                if (progress >= 100) {
+
+                    clearInterval(interval);
+
+
+                    status.innerText =
+                        "Completed ✓";
+
+
+                    message.innerText =
+                        "Resume evaluation completed successfully.";
+
+
+                    setTimeout(
+                        function() {
+
+                            document.getElementById(
+                                "resumeResult"
+                            ).style.display =
+                                "block";
+
+
+                            showNotification(
+                                "Resume evaluation completed!"
+                            );
+
+                        },
+                        500
+                    );
+
+                }
+
+            },
+            100
+        );
+
+}
+
+
+/* =========================================================
+   SKILL ANALYSIS
+========================================================= */
+
+function renderSkills() {
+
+    const container =
+        document.getElementById(
+            "interactiveSkills"
+        );
+
+
+    container.innerHTML = "";
+
+
+    Object.keys(skills).forEach(
+        skillName => {
+
+            const data =
+                skills[skillName];
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "skill " +
+                (
+                    data.status === "ready"
+                    ? "skill-ready"
+                    : data.status === "warning"
+                    ? "skill-warning"
+                    : "skill-missing"
+                );
+
+
+            button.innerText =
+                skillName;
+
+
+            button.onclick =
+                function() {
+
+                    showSkillExplanation(
+                        skillName
+                    );
+
+                };
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+function showSkillExplanation(skillName) {
+
+    const data =
+        skills[skillName];
+
+
+    const explanation =
+        document.getElementById(
+            "skillExplanation"
+        );
+
+
+    let action = "";
+
+
+    if (data.status === "warning") {
+
+        action =
+            `<br><br>
+            <button
+                class="btn btn-primary"
+                onclick="showPageByName('training')"
+            >
+            Start Training
+            </button>`;
+
+    }
+
+
+    explanation.innerHTML =
+
+        `<h3>${skillName}</h3>
+
+        <p style="margin-top:10px">
+        ${data.explanation}
+        </p>
+
+        ${action}`;
+
+}
+
+
+/* =========================================================
+   JOB RENDERING
+========================================================= */
+
+function renderJobs(
+    container,
+    data
+) {
+
+    container.innerHTML = "";
+
+
+    data.forEach(
+        job => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "job-card";
+
+
+            card.innerHTML = `
+
+                <div class="job-header">
+
+                    <div>
+
+                        <div class="job-title">
+                            ${job.title}
+                        </div>
+
+                        <div class="company">
+                            ${job.company}
+                            •
+                            ${job.location}
+                        </div>
+
+                    </div>
+
+                    <span class="match">
+                        ${job.match}% Match
+                    </span>
+
+                </div>
+
+
+                <div class="job-skill-list">
+
+                    ${job.skills.map(
+                        skill =>
+                        `<span class="job-skill">
+                            ${skill}
+                        </span>`
+                    ).join("")}
+
+                </div>
+
+
+                <div class="job-actions">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="viewJob('${job.title}')"
+                    >
+                        View Job
+                    </button>
+
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="jobSkillGap('${job.title}')"
+                    >
+                        Skill Gap
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   JOB SEARCH
+========================================================= */
+
+function filterJobs() {
+
+    const search =
+        document.getElementById(
+            "jobSearch"
+        ).value.toLowerCase();
+
+
+    const match =
+        document.getElementById(
+            "matchFilter"
+        ).value;
+
+
+    const location =
+        document.getElementById(
+            "locationFilter"
+        ).value;
+
+
+    const filtered =
+        jobs.filter(
+            job => {
+
+                const matchesSearch =
+                    job.title
+                    .toLowerCase()
+                    .includes(search);
+
+
+                const matchesMatch =
+                    match === "all"
+                    ||
+                    job.match >=
+                    Number(match);
+
+
+                const matchesLocation =
+                    location === "all"
+                    ||
+                    job.location === location;
+
+
+                return (
+                    matchesSearch
+                    &&
+                    matchesMatch
+                    &&
+                    matchesLocation
+                );
+
+            }
+        );
+
+
+    renderJobs(
+        document.getElementById("allJobs"),
+        filtered
+    );
+
+}
+
+
+document.getElementById(
+    "jobSearch"
+).addEventListener(
+    "input",
+    filterJobs
+);
+
+
+document.getElementById(
+    "matchFilter"
+).addEventListener(
+    "change",
+    filterJobs
+);
+
+
+document.getElementById(
+    "locationFilter"
+).addEventListener(
+    "change",
+    filterJobs
+);
+
+
+/* =========================================================
+   VIEW JOB
+========================================================= */
+
+function viewJob(jobTitle) {
+
+    const job =
+        jobs.find(
+            j => j.title === jobTitle
+        );
+
+
+    openModal(
+
+        job.title,
+
+        `
+
+        <strong>Company:</strong>
+        ${job.company}
+
+        <br>
+
+        <strong>Location:</strong>
+        ${job.location}
+
+        <br>
+
+        <strong>Your Match:</strong>
+        ${job.match}%
+
+        <br><br>
+
+        <strong>Required Skills</strong>
+
+        <ul style="margin:10px 0 0 20px">
+
+            ${job.skills.map(
+                s => `<li>${s}</li>`
+            ).join("")}
+
+        </ul>
+
+        <br>
+
+        <button
+            class="btn btn-primary"
+            onclick="showNotification('Application process started!');closeModal();"
+        >
+            Apply for Job
+        </button>
+
+        `
+
+    );
+
+}
+
+
+/* =========================================================
+   JOB SKILL GAP
+========================================================= */
+
+function jobSkillGap(jobTitle) {
+
+    const job =
+        jobs.find(
+            j => j.title === jobTitle
+        );
+
+
+    const mySkills =
+        Object.keys(skills)
+        .filter(
+            s =>
+            skills[s].status === "ready"
+        );
+
+
+    const missing =
+        job.skills.filter(
+            skill =>
+            !mySkills.includes(skill)
+        );
+
+
+    openModal(
+
+        "Skill Gap: " + job.title,
+
+        `
+
+        <p>
+        Your current match is
+        <strong>${job.match}%</strong>.
+        </p>
+
+        <br>
+
+        <strong>Skills you already have:</strong>
+
+        <p>
+        ${job.skills
+            .filter(
+                s => mySkills.includes(s)
+            )
+            .join(", ")
+            ||
+            "None"}
+        </p>
+
+        <br>
+
+        <strong>Skills to improve:</strong>
+
+        <p>
+        ${missing.join(", ") || "No major gaps"}
+        </p>
+
+        <br>
+
+        <button
+            class="btn btn-primary"
+            onclick="showPageByName('training');closeModal();"
+        >
+            View Recommended Training
+        </button>
+
+        `
+
+    );
+
+}
+
+
+/* =========================================================
+   TRAINING
+========================================================= */
+
+function renderTraining() {
+
+    const container =
+        document.getElementById(
+            "trainingList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    training.forEach(
+        (course, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "card";
+
+
+            card.innerHTML = `
+
+                <div class="training-card">
+
+                    <div class="training-header">
+
+                        <h3>
+                            ${course.name}
+                        </h3>
+
+                        <strong>
+                            ${course.progress}%
+                        </strong>
+
+                    </div>
+
+
+                    <p>
+                        ${course.description}
+                    </p>
+
+
+                    <div class="progress-container">
+
+                        <div
+                            class="progress-bar"
+                            style="width:${course.progress}%"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="continueTraining(${index})"
+                    >
+                        Continue Training
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    updateTrainingOverall();
+
+}
+
+
+function continueTraining(index) {
+
+    training[index].progress += 10;
+
+
+    if (
+        training[index].progress > 100
+    ) {
+
+        training[index].progress = 100;
+
+    }
+
+
+    renderTraining();
+
+
+    showNotification(
+        training[index].name +
+        " progress updated!"
+    );
+
+
+    updateCareerReadiness();
+
+}
+
+
+/* =========================================================
+   TRAINING OVERALL
+========================================================= */
+
+function updateTrainingOverall() {
+
+    let total = 0;
+
+
+    training.forEach(
+        course => {
+
+            total += course.progress;
+
+        }
+    );
+
+
+    const average =
+        Math.round(
+            total / training.length
+        );
+
+
+    document.getElementById(
+        "trainingOverallBar"
+    ).style.width =
+        average + "%";
+
+
+    document.getElementById(
+        "trainingProgressText"
+    ).innerText =
+        average + "% Overall";
+
+}
+
+
+/* =========================================================
+   CAREER READINESS
+========================================================= */
+
+function updateCareerReadiness() {
+
+    const trainingAverage =
+        training.reduce(
+            (sum, item) =>
+                sum + item.progress,
+            0
+        )
+        /
+        training.length;
+
+
+    let readiness =
+        Math.round(
+            70 +
+            trainingAverage * 0.15
+        );
+
+
+    if (readiness > 100) {
+
+        readiness = 100;
+
+    }
+
+
+    document.getElementById(
+        "resumeScore"
+    ).innerText =
+        readiness;
+
+
+    document.getElementById(
+        "readinessText"
+    ).innerText =
+        readiness + "%";
+
+
+    document.getElementById(
+        "readinessBar"
+    ).style.width =
+        readiness + "%";
+
+}
+
+
+/* =========================================================
+   PLAN
+========================================================= */
+
+function selectPlan(plan) {
+
+    document.getElementById(
+        "currentPlan"
+    ).innerText =
+        plan.toUpperCase() +
+        " PLAN";
+
+
+    showNotification(
+        plan +
+        " plan selected."
+    );
+
+
+    if (plan === "Advanced") {
+
+        showPageByName(
+            "dashboard"
+        );
+
+    }
+
+}
+
+
+function upgradeProfessional() {
+
+    openModal(
+
+        "Upgrade to Professional",
+
+        `
+
+        <h3>
+        Professional Plan
+        </h3>
+
+        <br>
+
+        <p>
+        You will get access to:
+        </p>
+
+        <ul
+            style="margin:10px 0 15px 20px"
+        >
+
+            <li>Advanced skill assessments</li>
+
+            <li>Project-based training</li>
+
+            <li>Personalized career roadmap</li>
+
+            <li>Advanced learning modules</li>
+
+            <li>Progress tracking</li>
+
+        </ul>
+
+
+        <button
+            class="btn btn-primary"
+            onclick="
+                selectPlan('Professional');
+                closeModal();
+            "
+        >
+            Confirm Upgrade
+        </button>
+
+        `
+
+    );
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(
+    title,
+    body
+) {
+
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        title;
+
+
+    document.getElementById(
+        "modalBody"
+    ).innerHTML =
+        body;
+
+
+    document.getElementById(
+        "modal"
+    ).style.display =
+        "flex";
+
+}
+
+
+function closeModal() {
+
+    document.getElementById(
+        "modal"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+function showNotification(
+    message
+) {
+
+    const notification =
+        document.getElementById(
+            "notification"
+        );
+
+
+    notification.innerText =
+        message;
+
+
+    notification.style.display =
+        "block";
+
+
+    setTimeout(
+        function() {
+
+            notification.style.display =
+                "none";
+
+        },
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+renderDashboard();
+
+renderSkills();
+
+renderTraining();
+
+</script>
+
+</body>
+</html>
