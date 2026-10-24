@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Omics Hub</title>
+
+    <link rel="stylesheet" href="signup.css">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <div class="signup-container">
+
+        <!-- LEFT SIDE -->
+        <section class="signup-visual">
+
+            <div class="brand">
+                <div class="logo">O</div>
+                <span>Omics Hub</span>
+            </div>
+
+            <div class="visual-content">
+
+                <span class="small-label">JOIN THE COMMUNITY</span>
+
+                <h1>
+                    Build your future
+                    <span>in life sciences.</span>
+                </h1>
+
+                <p>
+                    Create your Omics Hub account and connect with
+                    opportunities across biotechnology, genomics,
+                    bioinformatics and research.
+                </p>
+
+                <div class="field-cards">
+
+                    <div class="field-card">
+                        <span>🧬</span>
+                        <div>
+                            <strong>Genomics</strong>
+                            <small>Explore opportunities</small>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <span>🔬</span>
+                        <div>
+                            <strong>Research</strong>
+                            <small>Discover new paths</small>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <span>💻</span>
+                        <div>
+                            <strong>Bioinformatics</strong>
+                            <small>Connect with experts</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT SIDE -->
+        <section class="signup-section">
+
+            <div class="signup-card">
+
+                <div class="signup-header">
+
+                    <h2>Create your account</h2>
+
+                    <p>
+                        Join Omics Hub and start exploring
+                        life-science opportunities.
+                    </p>
+
+                </div>
+
+
+                <form id="signupForm">
+
+                    <!-- FULL NAME -->
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                        >
+
+                        <small
+                            class="error-message"
+                            id="nameError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                        >
+
+                        <small
+                            class="error-message"
+                            id="emailError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Create Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="togglePassword">
+                                Show
+                            </button>
+
+                        </div>
+
+                        <!-- PASSWORD STRENGTH -->
+                        <div class="password-strength">
+
+                            <div class="strength-bar">
+                                <span id="strengthBar"></span>
+                            </div>
+
+                            <span id="strengthText">
+                                Password strength
+                            </span>
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="passwordError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="toggleConfirmPassword">
+                                Show
+                            </button>
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="confirmPasswordError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- TERMS -->
+                    <div class="terms">
+
+                        <label class="checkbox-container">
+
+                            <input
+                                type="checkbox"
+                                id="terms"
+                            >
+
+                            <span class="checkmark"></span>
+
+                            <span>
+                                I agree to the
+                                <a href="#">Terms of Service</a>
+                                and
+                                <a href="#">Privacy Policy</a>
+                            </span>
+
+                        </label>
+
+                        <small
+                            class="error-message"
+                            id="termsError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- CREATE ACCOUNT -->
+                    <button
+                        type="submit"
+                        class="create-btn"
+                        id="createBtn">
+
+                        <span id="buttonText">
+                            Create Account
+                        </span>
+
+                        <span
+                            class="loader"
+                            id="loader">
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- LOGIN LINK -->
+                <div class="login-link">
+
+                    Already have an account?
+
+                    <a href="index.html">
+                        Sign in
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="signup.js"></script>
+
+</body>
+</html>

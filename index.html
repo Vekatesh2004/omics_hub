@@ -1,1 +1,321 @@
-<!doctype html><html><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>OmicsHub Recruiter</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Omics Hub | Login</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- ================= LEFT SIDE ================= -->
+        <section class="brand-section">
+
+            <!-- Logo -->
+            <header class="logo-container">
+
+                <div class="logo-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div>
+                    <h2>OMICS <span>HUB</span></h2>
+                    <p>SCIENCE • CAREERS • OPPORTUNITY</p>
+                </div>
+
+            </header>
+
+
+            <!-- Main content -->
+            <div class="brand-content">
+
+                <p class="small-title">
+                    LIFE SCIENCE CAREER PLATFORM
+                </p>
+
+                <h1>
+                    Discover.<br>
+                    <span>Connect.</span><br>
+                    Grow.
+                </h1>
+
+                <p class="description">
+                    Connecting life-science talent with opportunities
+                    across genomics, biotechnology, bioinformatics
+                    and research.
+                </p>
+
+
+                <!-- Science visual -->
+                <div class="science-area">
+
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+
+                    <div class="dna">
+                        <div class="strand strand-left"></div>
+                        <div class="strand strand-right"></div>
+
+                        <div class="rung rung-1"></div>
+                        <div class="rung rung-2"></div>
+                        <div class="rung rung-3"></div>
+                        <div class="rung rung-4"></div>
+                    </div>
+
+
+                    <!-- Floating cards -->
+
+                    <div class="science-card card-1">
+                        🧬
+                        <span>Genomics</span>
+                    </div>
+
+                    <div class="science-card card-2">
+                        🔬
+                        <span>Research</span>
+                    </div>
+
+                    <div class="science-card card-3">
+                        💻
+                        <span>Bioinformatics</span>
+                    </div>
+
+                    <div class="science-card card-4">
+                        🧪
+                        <span>Biotechnology</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <section class="login-section">
+
+            <div class="login-card">
+
+                <!-- Mobile logo -->
+                <div class="mobile-logo">
+                    <strong>OMICS <span>HUB</span></strong>
+                </div>
+
+
+                <!-- Heading -->
+                <div class="login-heading">
+
+                    <p class="welcome">
+                        WELCOME BACK
+                    </p>
+
+                    <h1>
+                        Sign in to Omics Hub
+                    </h1>
+
+                    <p>
+                        Continue your journey with the
+                        life-science community.
+                    </p>
+
+                </div>
+
+
+                <!-- Login Form -->
+
+                <form id="loginForm">
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-container">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email address"
+                            >
+
+                        </div>
+
+                        <p
+                            class="error"
+                            id="emailError">
+                        </p>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-container">
+
+                            <span class="input-icon">
+                                ●
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Enter your password"
+                            >
+
+                            <button
+                                type="button"
+                                id="showPassword"
+                                class="password-button">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                        <p
+                            class="error"
+                            id="passwordError">
+                        </p>
+
+                    </div>
+
+
+                    <!-- Remember + Forgot -->
+
+                    <div class="login-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="remember">
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </label>
+
+                        <a href="#">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login button -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton">
+
+                        <span id="buttonText">
+                            Sign In
+                        </span>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                        <span
+                            class="loader"
+                            id="loader">
+                        </span>
+
+                    </button>
+
+
+                    <!-- Divider -->
+
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+
+
+                    <!-- Google -->
+
+                    <button
+                        type="button"
+                        class="google-button">
+
+                        <span class="google">
+                            G
+                        </span>
+
+                        Continue with Google
+
+                    </button>
+
+
+                    <!-- Create account -->
+
+                    <p class="create-account">
+
+                        Don't have an account?
+
+                        <a href="#">
+                            Create Account
+                        </a>
+
+                    </p>
+
+                    <!-- Status -->
+
+                    <div
+                        id="status"
+                        class="status">
+                    </div>
+
+                </form>
+
+
+                <!-- Security -->
+
+                <p class="security">
+                    🔒 Your account information is protected securely.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
