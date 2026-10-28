@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmicsHub - Training Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dark-bg">
+
+    <div class="app-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="left-sidebar">
+            <div class="sidebar-brand">
+                <span class="logo-icon">❖</span>
+                <div class="brand-text">
+                    <span class="brand-title">OmicsHub</span>
+                    <span class="brand-sub">Training Portal</span>
+                </div>
+            </div>
+
+            <div class="user-profile-box">
+                <div class="avatar">{{ user.username[0].upper() }}</div>
+                <div class="user-info">
+                    <span class="user-name">{{ user.username }}</span>
+                    <span class="user-plan">Plan: {{ user.subscription_plan }}</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active">📊 Dashboard Overview</a>
+                <a href="#courses" class="nav-item">📚 My Courses</a>
+                <a href="#certificates" class="nav-item">🎓 Certificates</a>
+                <a href="#attendance" class="nav-item">📅 Attendance</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/logout" class="logout-btn">🚪 Sign Out</a>
+            </div>
+        </aside>
+
+        <!-- MAIN DASHBOARD -->
+        <main class="main-viewport">
+            
+            <section id="overview" class="dashboard-section header-section">
+                <div class="welcome-box">
+                    <h2>Hi, {{ user.username }}! 👋</h2>
+                    <p>Welcome to your bioinformatics training workspace.</p>
+                    
+                    <div class="plan-selector-row">
+                        <span>Subscription Plan:</span>
+                        <a href="/subscribe/Free" class="plan-btn {% if user.subscription_plan == 'Free' %}active{% endif %}">Free</a>
+                        <a href="/subscribe/Pro" class="plan-btn {% if user.subscription_plan == 'Pro' %}active{% endif %}">Pro</a>
+                        <a href="/subscribe/Premium" class="plan-btn {% if user.subscription_plan == 'Premium' %}active{% endif %}">Premium</a>
+                    </div>
+                </div>
+
+                <div class="metrics-ring-box">
+                    <div class="metric-circle">
+                        <span class="metric-num">{{ courses|length }}</span>
+                        <span class="metric-label">All Courses</span>
+                    </div>
+                    <div class="metric-circle">
+                        <span class="metric-num">{{ courses | selectattr('progress', 'gt', 0) | selectattr('progress', 'lt', 100) | list | length }}</span>
+                        <span class="metric-label">In Progress</span>
+                    </div>
+                    <div class="metric-circle">
+                        <span class="metric-num">{{ courses | selectattr('progress', 'eq', 100) | list | length }}</span>
+                        <span class="metric-label">Completed</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COURSE CATALOG SECTION -->
+            <section id="courses" class="dashboard-section catalog-section">
+                <div class="section-header-row">
+                    <h3>Explore Subscription Courses</h3>
+                </div>
+
+                <div class="courses-grid">
+                    {% for course in courses %}
+                    <div class="course-card">
+                        <div class="card-thumb">
+                            <span class="badge-plan {{ course.plan_required.lower() }}">{{ course.plan_required }} Tier</span>
+                            <span class="badge-cat">{{ course.category }}</span>
+                        </div>
+                        <div class="card-body">
+                            <h4>{{ course.title }}</h4>
+                            <p class="course-desc">{{ course.description }}</p>
+                            
+                            <div class="card-progress">
+                                <div class="progress-text">
+                                    <span>Progress</span>
+                                    <span id="prog-txt-{{ course.id }}">{{ course.progress }}%</span>
+                                </div>
+                                <div class="mini-bar-bg">
+                                    <div id="prog-bar-{{ course.id }}" class="mini-bar-fill" style="width: {{ course.progress }}%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- CARD ACTION BUTTONS -->
+                            <div class="card-action" id="action-box-{{ course.id }}">
+                                {% if (course.plan_required == 'Pro' and user.subscription_plan == 'Free') or (course.plan_required == 'Premium' and user.subscription_plan != 'Premium') %}
+                                    <button class="btn-action disabled">🔒 Upgrade to {{ course.plan_required }}</button>
+                                {% elif course.progress == 100 %}
+                                    <a href="{{ url_for('generate_certificate', course_name=course.title) }}" class="btn-action btn-gold">
+                                        🎓 Auto-Generate PDF Certificate
+                                    </a>
+                                {% else %}
+                                    <button class="btn-action btn-blue" onclick='openLessonModal({{ course.id }}, {{ course.title|tojson }}, {{ course.lessons|tojson }})'>
+                                        ▶ Start Modules ({{ course.progress }}%)
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODULE LESSON MODAL POPUP -->
+    <div id="moduleModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalCourseTitle">Course Modules</h3>
+                <button class="close-btn" onclick="closeLessonModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="lessonList" class="lesson-sidebar"></div>
+                <div id="lessonView" class="lesson-main-view">
+                    <p style="color: #94a3b8;">Select a module on the left to start reading.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let activeCourseId = null;
+
+        function openLessonModal(courseId, title, lessons) {
+            activeCourseId = courseId;
+            document.getElementById('modalCourseTitle').textContent = title;
+            const lessonList = document.getElementById('lessonList');
+            lessonList.innerHTML = '';
+
+            if (!lessons || lessons.length === 0) {
+                document.getElementById('lessonView').innerHTML = '<p style="color: #94a3b8;">No modules available for this course yet.</p>';
+            } else {
+                lessons.forEach((l, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `lesson-tab-btn ${l.is_completed ? 'completed' : ''}`;
+                    btn.innerHTML = `${l.is_completed ? '✅' : '📖'} ${l.title}`;
+                    btn.onclick = () => renderLessonContent(l);
+                    lessonList.appendChild(btn);
+                });
+                renderLessonContent(lessons[0]);
+            }
+
+            document.getElementById('moduleModal').style.display = 'flex';
+        }
+
+        function renderLessonContent(lesson) {
+            const view = document.getElementById('lessonView');
+            view.innerHTML = `
+                <h4>${lesson.title}</h4>
+                <p class="lesson-time">⏱ Duration: ${lesson.duration}</p>
+                <div class="lesson-text-body">${lesson.content}</div>
+                <button class="btn-action btn-blue" style="margin-top:20px;" onclick="completeModuleStep(${activeCourseId}, ${lesson.id})">
+                    ✔ Mark Module Complete
+                </button>
+            `;
+        }
+
+        function completeModuleStep(courseId, lessonId) {
+            fetch(`/complete_module/${courseId}/${lessonId}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById(`prog-txt-${courseId}`).textContent = `${data.new_progress}%`;
+                        document.getElementById(`prog-bar-${courseId}`).style.width = `${data.new_progress}%`;
+                        
+                        alert('Module step completed!');
+                        if (data.new_progress === 100) {
+                            location.reload(); // Reload to swap button to Auto-Generate Certificate
+                        }
+                    }
+                });
+        }
+
+        function closeLessonModal() {
+            document.getElementById('moduleModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
